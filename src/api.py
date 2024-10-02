@@ -39,6 +39,12 @@ def subscribe(email: str):
     response = sg.client.marketing.contacts.put(
     request_body=data
     )
+    if response.status_code >= 400:
+        return {"subscribe": "failure"}
+    elif response.status_code == 200:
+        return {"subscribe": "success"}
+    else:
+        return {"subscribe": response.status_code}
     print(response.status_code)
     print(response.body)
     print(response.headers)
